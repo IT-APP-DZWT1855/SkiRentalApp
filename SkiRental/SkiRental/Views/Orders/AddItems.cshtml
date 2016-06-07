@@ -1,0 +1,59 @@
+﻿@model SkiRental.ViewModels.OrderWithItemList
+
+@{
+    ViewBag.Title = "Dodaj itemy";
+    ViewBag.orderCode = Model.OrderCode;
+}
+
+<h2>Dodaj przedmioty do zamówienia</h2>
+<hr />
+
+<h4>Szczegóły zamówienia</h4>
+<p><span style="font-weight:bold;">Numer zamówienia: </span>@Model.OrderCode</p>
+<p><span style="font-weight:bold;">Data początkowa: </span>@Model.StartDate</p>
+<p><span style="font-weight:bold;">Data końcowa: </span>@Model.EndDate</p>
+<p><span style="font-weight:bold;">Opis: </span>@Model.Opis</p>
+
+@*<h4>Dodane przedmioty:</h4>
+@Html.Action("AddedItems", "Orders", new { ordercode = Model.OrderCode })
+<hr />*@
+
+@*@{Html.Action("ListOrderItems", "Orders");}
+
+@if(@Model.Items.Count == 0)
+    {
+    <div class="alert warning">Brak dodanych przedmiotów</div>
+}*@
+
+
+<table class="table">
+    <tr>
+        <th>
+            Id
+        </th>
+        <th>
+            Producent
+        </th>
+    </tr>
+
+    @foreach (var item in Model.Items)
+    {
+        <tr>
+            <td>
+                @item.Id
+            </td>
+            <td>
+                @item.Producer
+            </td>
+            
+            <td>
+                @Html.ActionLink("Dodaj do koszyka", "AddToOrder", new { itemId = item.Id, OrderCode = Model.OrderCode })
+
+            </td>
+        </tr>
+    }
+
+</table>
+
+<a class="btn btn-default create" href="@Url.Action("ListOrders", "Orders")">Zakończ</a>
+

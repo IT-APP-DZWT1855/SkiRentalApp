@@ -1,0 +1,22 @@
+﻿@model SkiRental.Models.Order
+
+@{
+    ViewBag.Title = "Nowe zamówienie";
+}
+
+<h2>Nowe zamówienie</h2>
+
+<p>Wybierz</p>
+
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(model => model., htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Producer, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+    </div>
+}
+

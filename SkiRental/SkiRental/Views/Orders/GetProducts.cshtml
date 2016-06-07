@@ -1,0 +1,19 @@
+﻿@model List<SkiRental.Models.Item>
+
+<table class="table" style="width:100%;">
+    <tr>
+        <th>ID</th>
+        <th>Producent</th>
+        <th>Model</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Producer</td>
+            <td>@item.Model</td>
+            <td><a href="#" class="btn btn-default">Zamów</a></td>
+        </tr>
+    }
+</table>

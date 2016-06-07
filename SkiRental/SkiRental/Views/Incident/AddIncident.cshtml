@@ -1,0 +1,52 @@
+﻿@model SkiRental.Models.Incident
+
+@{
+    ViewBag.Title = "AddIncident";
+}
+
+<h2>Dodaj incydent</h2>
+
+@using (Html.BeginForm(@Html.BeginForm("AddIncident", "Incident")))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+
+    @Html.LabelFor(model => model.Cost, htmlAttributes: new { @class = "control-label col-md-2" })
+    @Html.EditorFor(model => model.Cost, new { htmlAttributes = new { @class = "form-control" } })
+
+    @Html.LabelFor(model => model.ItemId, htmlAttributes: new { @class = "control-label col-md-2" })
+    @Html.EditorFor(model => model.ItemId, new { htmlAttributes = new { @class = "form-control itemId" } })
+
+    @*@Html.LabelFor(model => model.IncidentTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.EditorFor(model => model.IncidentTypeId, new { htmlAttributes = new { @class = "form-control" } })*@
+    <label>Typ incydentu</label>
+    @Html.DropDownList("SelectItems", "Wybierz rodzaj")
+
+    <label>Wybrany rodzaj:</label>
+    <input class="form-control text-box single-line" id="IncidentTypeId" name="IncidentTypeId">
+
+    <input type="submit" value="Utwórz" class="btn btn-default" />
+}
+
+<h3>Wybierz przedmiot</h3>
+
+@Html.Action("ListItems", "Incident")
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $("tr").click(function () {
+                var id = $(this).find(">:first-child").text();
+
+                $(".itemId").val(id);
+            });
+
+            $("select").on("change", function () {
+                var text = $("select option:selected").val();
+                $("#IncidentTypeId").val(text);
+            });
+        });
+    </script>
+}

@@ -1,0 +1,15 @@
+﻿@model List<SkiRental.Models.Item>
+
+<table class="table">
+    <tr>
+        <th>Id</th>
+        <th>Model</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="@item.Id">@item.Id</td>
+            <td>@item.Model</td>
+        </tr>
+    }
+</table>

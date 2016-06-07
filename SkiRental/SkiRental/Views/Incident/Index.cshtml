@@ -1,0 +1,36 @@
+﻿@model List<SkiRental.Models.Incident>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Lista incydentów</h2>
+<hr />
+
+@if (Model.Count == 0)
+{
+    <div class="alert alert-warning">Brak incydentów</div>
+}
+
+@if (Model.Count != 0)
+{
+    <table class="table">
+        <tr>
+            <th>Id</th>
+            <th>Incydent</th>
+            <th>Opis</th>
+            <th>Koszt</th>
+            <th></th>
+        </tr>
+        @foreach (var incident in Model)
+        {
+            <tr>
+                <td>@incident.Id</td>
+                <td>@incident.IncidentType.Name</td>
+                <td>@incident.Description</td>
+                <td>@incident.Cost</td>
+                <td>@Html.ActionLink("Produkt", "Details", "Items", new { id = incident.ItemId }, null)</td>
+            </tr>
+        }
+    </table>
+}

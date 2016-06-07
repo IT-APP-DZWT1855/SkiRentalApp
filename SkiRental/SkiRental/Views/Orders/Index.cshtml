@@ -1,0 +1,103 @@
+﻿@model SkiRental.ViewModels.OrderViewModel
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Nowe zamówienie</h2>
+<hr />
+
+<h4>Szczegóły zamówienia</h4>
+<hr />
+
+@using (Html.BeginForm("Index", "Orders"))
+{
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-5">
+                <input type="hidden" id="CustomerId" name="CustomerId" value="@ViewBag.CustomerId" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Od kiedy</label>
+            <div class="col-md-5">
+                @Html.TextBoxFor(m => m.StartDate, null, new { @class = "start-datepicker form-control" })
+                @*@Html.TextBox("YourTextBox", "", new { @class = "start-datepicker form-control" })*@
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Do kiedy</label>
+            <div class="col-md-5">
+                @Html.TextBoxFor(m => m.EndDate, null, new { @class = "end-datepicker form-control" })
+                @*@Html.TextBox("YourTextBox", "", new { @class = "end-datepicker form-control" })*@
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Opis</label>
+            <div class="col-md-5">
+                @Html.EditorFor(model => model.Opis, new { @class = "form-control" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            <label class="control-label col-md-2">Lokalizacje</label>
+            <div class="col-md-5">
+                @Html.EnumDropDownListFor(m => m.Location)
+            </div>
+        </div>*@
+
+        <input type="submit" value="Złóż zamówienie" class="btn btn-primary" />
+
+    </div>
+}
+
+
+
+@*<h4>Wybierz sprzęt</h4>
+    <hr />
+    @Html.Action("GetCategory", "Orders")
+
+    <div id="result"></div>
+
+    <h4>Podsumowanie</h4>
+    <hr />*@
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+
+            $("#Kategoria").on("change", function () {
+
+                console.log($(this).children("option").filter(":selected").text());
+
+                $.ajax({
+                    url: "/Orders/GetProducts",
+                    data: {
+                        category: $(this).children("option").filter(":selected").text(),
+                    },
+                    success: function(response) {
+                        $("#result").html(response);
+                    }
+                });
+            });
+
+            $(function () {
+                $(".start-datepicker").datepicker({
+                    dateFormat: "yy-mm-dd",
+                    changeYear: true,
+
+                })
+            });
+
+            $(function () {
+                $(".end-datepicker").datepicker({
+                    dateFormat: "yy-mm-dd",
+                    changeYear: true,
+
+                })
+            });
+        });
+    </script>
+}

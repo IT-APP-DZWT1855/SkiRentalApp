@@ -1,0 +1,27 @@
+﻿@model SkiRental.Models.Payment
+
+@{ 
+    ViewBag.tmp = Model.OrderCode;
+}
+
+<h4>Płatności</h4>
+
+<table class="table table-responsive">
+    <tr>
+        <td>Id zamówienia</td>
+        <td>Godziny</td>
+        <td>Czy zapłacono</td>
+        <td>Kwota</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>@Model.Id</td>
+        <td>@Model.RentalTime</td>
+        <td>@Model.IsPaid.ToString()</td>
+        <td><span @if (Model.IsPaid) { @Html.Raw("style=\"color:green;\"")  }>@Model.Amount</span><span @if (Model.IsPaid) { @Html.Raw("style=\"display:none;\"")  }> | <a href="@Url.Action("Pay", "Orders", new { id = Model.Id })">Zapłać</a></span></td>
+        @*<td>@Html.ActionLink("Zapłać", "Pay", "Orders", null, new { id = 99 })</td>*@
+        @*@Html.ActionLink("Zapłać", "Pay", "Orders", new { id = Model.Id })*@
+    </tr>
+</table>
+
+@Html.Action("Amount", "Orders", new { id = Model.Id })

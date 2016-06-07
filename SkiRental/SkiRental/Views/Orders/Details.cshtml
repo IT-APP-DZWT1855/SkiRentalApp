@@ -1,0 +1,58 @@
+﻿@model SkiRental.ViewModels.OrderWithItems
+
+@{ 
+    ViewBag.orderCode = Model.OrderCode;
+}
+
+<h2>Szczegóły zamówienia</h2>
+
+<h4>Informacje</h4>
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(model => model.OrderCode)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.OrderCode)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.StartDate)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.StartDate)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.EndDate)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.EndDate)
+    </dd>
+    <dt>
+        @Html.DisplayNameFor(model => model.Opis)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.Opis)
+    </dd>
+</dl>
+
+<h4>Przedmioty</h4>
+<table class="table table-responsive">
+    <tr>
+        <th>Producent</th>
+        <th>Model</th>
+        <th>Rozmiar</th>
+        <th>Poziom zaawansowania</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model.Items)
+    {
+        <tr>
+            <td>@item.Producer</td>
+            <td>@item.Model</td>
+            <td>@item.Size</td>
+            <td>@item.Level</td>
+            <td><a href="@Url.Action("Details", "Items", new { id = @item.ItemId })">Szczegóły</a></td>
+        </tr>
+    }
+</table>
+
+@Html.Action("ToPay", "Orders", new { orderCode = Model.OrderCode })
